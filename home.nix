@@ -8,6 +8,7 @@
     ./home-modules/programs/zsh.nix
     ./home-modules/wayland/hyprland.nix
     ./home-modules/wayland/waybar.nix
+    ./home-modules/wayland/wofi.nix
   ];
 
   home.username = "iskyd";
