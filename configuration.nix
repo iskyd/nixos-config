@@ -31,4 +31,8 @@
   home-manager.users.iskyd = import ./home.nix;
 
   system.stateVersion = "25.11";
+
+  environment.systemPackages = with pkgs; [
+    psmisc
+  ];
 }

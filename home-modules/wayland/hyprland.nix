@@ -79,6 +79,7 @@
         "$mod, J, togglesplit"
         "$mod, F, fullscreen, 0"
         "$mod, L, exec, hyprlock"
+        "$mod, B, exec, brave"
 
         # Focus
         "$mod, left, movefocus, l"

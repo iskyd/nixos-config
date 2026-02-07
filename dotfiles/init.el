@@ -147,6 +147,8 @@
               ("C-c p" . projectile-command-map)))
 
 (use-package magit)
+(use-package forge
+  :after magit)
 
 (use-package company
   :hook (after-init . global-company-mode))

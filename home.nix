@@ -48,14 +48,53 @@
     just
     bruno
 
-    # Browser
-    brave
-
     # Fonts
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     nerd-fonts.meslo-lg
+
+    # Social
+    telegram-desktop
+
+    # Development
+    godot
+    blender
+
+    (pkgs.writeShellScriptBin "brave" ''
+      exec ${pkgs.brave}/bin/brave \
+        "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "brave-no-gpu" ''
+      exec ${pkgs.brave}/bin/brave \
+        --disable-gpu \
+        --user-data-dir="$HOME/.config/BraveSoftware/Brave-Browser-NoGpu" \
+        "$@"
+    '')
   ];
+
+  xdg.desktopEntries = {
+    brave = {
+      name = "Brave Browser";
+      genericName = "Web Browser";
+      exec = "brave %U";
+      terminal = false;
+      categories = [ "Application" "Network" "WebBrowser" ];
+      mimeType = [ "text/html" "text/xml" ];
+      icon = "${pkgs.brave}/share/icons/hicolor/128x128/apps/brave-browser.png";
+    };
+  
+    brave-drm = {
+      name = "Brave Browser (No GPU)";
+      genericName = "Web Browser for DRM Content No GPU";
+      exec = "brave-no-gpu %U";
+      terminal = false;
+      categories = [ "Application" "Network" "WebBrowser" ];
+      mimeType = [ "text/html" "text/xml" ];
+      icon = "${pkgs.brave}/share/icons/hicolor/128x128/apps/brave-browser.png";
+      comment = "For Udemy, Netflix, and other DRM platforms";
+    };
+  };
 
   # Alacritty
   programs.alacritty = {
