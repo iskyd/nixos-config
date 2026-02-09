@@ -19,6 +19,9 @@
         "waybar"
         "dunst"
         "swww init"
+        "nm-applet --indicator"
+        "gnome-keyring-daemon --start --components=secrets"
+        "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
       ];
 
       input = {
@@ -80,6 +83,7 @@
         "$mod, F, fullscreen, 0"
         "$mod, L, exec, hyprlock"
         "$mod, B, exec, brave"
+        "$mod, N, exec, nm-connection-editor"
 
         # Focus
         "$mod, left, movefocus, l"

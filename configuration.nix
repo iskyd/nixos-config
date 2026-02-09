@@ -9,6 +9,8 @@
     <home-manager/nixos>
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   # Boot configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -18,7 +20,14 @@
 
   # Networking
   networking.hostName = "brisingr";
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    plugins = [ pkgs.networkmanager-openvpn ];
+  };
+
+  security.polkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.login.enableGnomeKeyring = true;
 
   # User account
   users.users.iskyd = {
@@ -34,5 +43,6 @@
 
   environment.systemPackages = with pkgs; [
     psmisc
+    polkit_gnome
   ];
 }

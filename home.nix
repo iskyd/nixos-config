@@ -55,7 +55,6 @@
 
     # Social
     telegram-desktop
-    slack
 
     # Development
     godot
@@ -72,6 +71,9 @@
         --disable-gpu \
         "$@"
     '')
+
+    # Netork
+    networkmanagerapplet
   ];
 
   xdg.desktopEntries = {
