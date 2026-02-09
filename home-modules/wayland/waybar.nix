@@ -8,10 +8,18 @@
         layer = "top";
         position = "top";
         height = 35;
-
-        modules-left = [ "hyprland/workspaces" ];
+        modules-left = [ "hyprland/workspaces" "hyprland/window" ];
         modules-center = [ "clock" ];
         modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "battery" ];
+
+        "hyprland/workspaces" = {
+          format = "{id}";
+        };
+        
+        "hyprland/window" = {
+          format = "{}";
+          max-length = 50;
+        };
 
         clock = {
           format = "🕐 {:%H:%M}";
@@ -75,6 +83,19 @@
       #network { background-color: #94e2d5; color: #1e1e2e; }
       #pulseaudio { background-color: #f5c2e7; color: #1e1e2e; }
       #clock { background-color: #f38ba8; color: #1e1e2e; }
+
+      #workspaces button {
+        padding: 0 10px;
+        margin: 0 2px;
+        border-radius: 8px;
+        background-color: #313244;
+        color: #cdd6f4;
+      }
+      
+      #workspaces button.active {
+        background-color: #89b4fa;
+        color: #1e1e2e;
+      }
     '';
   };
 }

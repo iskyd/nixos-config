@@ -55,11 +55,13 @@
 
     # Social
     telegram-desktop
+    slack
 
     # Development
     godot
     blender
 
+    # Browser
     (pkgs.writeShellScriptBin "brave" ''
       exec ${pkgs.brave}/bin/brave \
         "$@"
@@ -68,7 +70,6 @@
     (pkgs.writeShellScriptBin "brave-no-gpu" ''
       exec ${pkgs.brave}/bin/brave \
         --disable-gpu \
-        --user-data-dir="$HOME/.config/BraveSoftware/Brave-Browser-NoGpu" \
         "$@"
     '')
   ];
