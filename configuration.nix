@@ -9,6 +9,9 @@
     <home-manager/nixos>
   ];
 
+  nix.optimise.automatic = true;
+  nix.settings.auto-optimise-store = true;
+
   nixpkgs.config.allowUnfree = true;
 
   # Boot configuration
