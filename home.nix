@@ -59,6 +59,7 @@
     # Development
     godot
     blender
+    postgresql
 
     # Browser
     (pkgs.writeShellScriptBin "brave" ''
