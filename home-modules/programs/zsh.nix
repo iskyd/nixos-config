@@ -68,6 +68,8 @@
       nxg = "nix-collect-garbage --delete-older-than 14d";
       ls = "eza --color auto --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --group-directories-first --no-quotes";
       ll = "eza --color auto --long --git --icons=always --group-directories-first --no-quotes";
+      rebuild = "sudo nixos-rebuild switch && hypr-monitor-setup";
+      shortgit = "git rev-parse --short=16 HEAD";
       sudo = "sudo ";
     };
   };

@@ -5,7 +5,6 @@
     enable = true;
     settings = {
       "$mod" = "SUPER";
-      monitor = ",preferred,auto,1";
 
       env = [
         "XCURSOR_SIZE,24"
@@ -22,6 +21,7 @@
         "nm-applet --indicator"
         "gnome-keyring-daemon --start --components=secrets"
         "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
+        "hypr-monitor-setup"
       ];
 
       input = {
@@ -116,6 +116,10 @@
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+
+        "$mod, equal, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        "$mod, minus, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        "$mod, 0, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
       ];
 
       bindm = [

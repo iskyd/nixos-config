@@ -28,14 +28,27 @@
     plugins = [ pkgs.networkmanager-openvpn ];
   };
 
+  # Docker
+  virtualisation.docker.enable = true;
+
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
 
+  services.logind = {
+    settings = {
+      Login = {
+        HandleLidSwitchDocked = "ignore";
+        HandleLidSwitchExternalPower = "ignore";
+        HandleLidSwitch = "ignore";
+      };
+    };
+  };
+
   # User account
   users.users.iskyd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "docker"];
     shell = pkgs.zsh;
   };
 

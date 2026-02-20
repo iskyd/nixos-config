@@ -60,6 +60,7 @@
     godot
     blender
     postgresql
+    awscli2
 
     # Browser
     (pkgs.writeShellScriptBin "brave" ''
@@ -75,6 +76,19 @@
 
     # Netork
     networkmanagerapplet
+
+    # Setup monitor
+    (pkgs.writeShellScriptBin "hypr-monitor-setup" ''
+      sleep 1  # Wait for monitors to be detected
+      if hyprctl monitors | grep -q "HDMI-A-1"; then
+        # HDMI connected - mirror at 2560x1440
+        hyprctl keyword monitor eDP-1,2560x1440@60,auto,1
+        hyprctl keyword monitor HDMI-A-1,2560x1440@60,auto,1,mirror,eDP-1
+      else
+        # No HDMI - use laptop at native resolution
+        hyprctl keyword monitor eDP-1,1920x1200@165,auto,1
+      fi
+    '')
   ];
 
   xdg.desktopEntries = {
@@ -100,6 +114,28 @@
     };
   };
 
+  services.ssh-agent.enable = true;
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {
+        addKeysToAgent = "yes";
+        identityFile = "~/.ssh/id_rsa";
+      };
+
+      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging" = {
+        user = "mattia_careddu";
+        identityFile = "~/.ssh/id_rsa";
+        
+        extraOptions = {
+          "CanonicalDomains" = "aws.conio.com";
+          "CanonicalizeHostname" = "yes";
+        };
+      };
+    };
+  };
+  
   # Alacritty
   programs.alacritty = {
     enable = true;

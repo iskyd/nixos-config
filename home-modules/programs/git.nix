@@ -22,6 +22,8 @@
         insteadOf = "https://bitbucket.org";
       };
       push.autoSetupRemote = true;
+      pull.rebase = true;
+      rebase.autoStash = true;
     };
     enable = true;
      signing = {
