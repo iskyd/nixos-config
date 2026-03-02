@@ -219,6 +219,15 @@ Format: package.module.Class.test_method, or nil if not on a test."
   ;; Bind keys in python-mode
   (define-key python-mode-map (kbd "C-c t t") #'python-run-make-test-at-point))
 
+(defun get-sops-secret (file-name)
+  "Read a secret from /run/secrets/ and trim whitespace."
+  (let ((file-path (concat "/run/secrets/" file-name)))
+    (if (file-exists-p file-path)
+        (with-temp-buffer
+          (insert-file-contents file-path)
+          (string-trim (buffer-string)))
+      (message "Warning: Secret file %s not found" file-path))))
+
 (use-package dap-mode
   :after lsp-mode
   :config
@@ -276,6 +285,18 @@ Format: package.module.Class.test_method, or nil if not on a test."
 
 (use-package nix-mode
   :mode "\\.nix\\'")
+
+
+
+(defvar gemini-key (get-sops-secret "gptel_gemini_key"))
+(use-package gptel
+  :ensure t ; Ensures the package is installed if it's not already
+  :config
+  (setq gptel-model 'gemini-2.5-flash)
+  (setq gptel-backend
+        (gptel-make-gemini "Gemini" 
+          :key gemini-key
+          :stream t)))
 
 (use-package doom-modeline
   :demand t

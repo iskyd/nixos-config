@@ -11,4 +11,8 @@
     socketActivation.enable = false;
     startWithUserSession = true;
   };
+
+   systemd.user.services.emacs = {
+    Service.Environment = "GPTEL_GEMINI_KEY_FILE=/run/secrets/gptel_gemini_key";
+  };
 }
