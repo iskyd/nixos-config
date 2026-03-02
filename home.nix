@@ -76,6 +76,7 @@
 
     # Netork
     networkmanagerapplet
+    wireguard-tools
 
     # Setup monitor
     (pkgs.writeShellScriptBin "hypr-monitor-setup" ''
@@ -124,7 +125,7 @@
         identityFile = "~/.ssh/id_rsa";
       };
 
-      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging" = {
+      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging online-*.hypestagingv2" = {
         user = "mattia_careddu";
         identityFile = "~/.ssh/id_rsa";
         

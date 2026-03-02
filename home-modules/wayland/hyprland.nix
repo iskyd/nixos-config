@@ -111,6 +111,7 @@
 
         # Screenshot
         ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
+        "$mod SHIFT, P, exec, grim -g \"$(slurp)\" - | wl-copy"
 
         # Volume
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
