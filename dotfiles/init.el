@@ -5,7 +5,6 @@
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
-(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
