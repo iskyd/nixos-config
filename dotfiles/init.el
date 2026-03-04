@@ -179,8 +179,7 @@
 (use-package lsp-pyright
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
-                         (setq lsp-pyright-venv-path "$VENV_DIR"
-			       lsp-pyright-type-checking-mode "strict")
+                         (setq lsp-pyright-type-checking-mode "strict")
                          (lsp-deferred))))
 
 ;; Conio python test runner
@@ -309,7 +308,69 @@ Format: package.module.Class.test_method, or nil if not on a test."
   :config
   (doom-modeline-mode 1))
 
+(use-package casual :ensure t)
+
 (use-package nerd-icons)
+
+(use-package ibuffer
+  :ensure t
+  :config
+  (setq ibuffer-expert t)
+  (setq ibuffer-display-summary nil)
+  (setq ibuffer-use-other-window nil)
+  (setq ibuffer-show-empty-filter-groups nil)
+  (setq ibuffer-default-sorting-mode 'filename/process)
+  (setq ibuffer-title-face 'font-lock-doc-face)
+  (setq ibuffer-use-header-line t)
+  (setq ibuffer-default-shrink-to-minimum-size nil)
+  (setq ibuffer-formats
+        '((mark modified read-only locked " "
+                (name 30 30 :left :elide)
+                " "
+                (size 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " " filename-and-process)
+          (mark " "
+                (name 16 -1)
+                " " filename)))
+  (setq ibuffer-saved-filter-groups
+        '(("Main"
+           ("Directories" (mode . dired-mode))
+            ("Python" (or
+                       (mode . python-mode)))
+	    ("Rust" (or
+                       (mode . rust-mode)))
+	    ("Zig" (or
+                       (mode . zig-mode)))
+           ("Config" (or
+                      (name . "^\\.gitignore$")
+                      (name . "^config\\.toml$")
+                      (mode . yaml-mode)))
+
+           ("Org" (mode . org-mode))
+           ("LaTeX" (name . "\.tex$"))
+           ("Magit" (or
+                     (mode . magit-blame-mode)
+                     (mode . magit-cherry-mode)
+                     (mode . magit-diff-mode)
+                     (mode . magit-log-mode)
+                     (mode . magit-process-mode)
+                     (mode . magit-status-mode)))
+           ("Emacs" (or
+                     (mode . emacs-lisp-mode)
+                     (name . "^\\*Help\\*$")
+                     (name . "^\\*Custom.*")
+                     (name . "^\\*Org Agenda\\*$")
+                     (name . "^\\*info\\*$")
+                     (name . "^\\*scratch\\*$")
+                     (name . "^\\*Backtrace\\*$")
+                     (name . "^\\*Messages\\*$"))))))
+  :hook
+  (ibuffer-mode . (lambda ()
+                    (ibuffer-switch-to-saved-filter-groups "Main"))))
+
+
 
 
 ;;;; Editor Behaviour
@@ -326,7 +387,6 @@ Format: package.module.Class.test_method, or nil if not on a test."
 (set-face-attribute 'default nil :height 100)
 (add-to-list 'default-frame-alist '(alpha . 97))
 
-(setq custom-file (make-temp-file "emacs-custom"))
 (setq backup-directory-alist '(("." . "~/emacsbackup")))
 
 ;; Reload current buffer
@@ -352,6 +412,7 @@ Format: package.module.Class.test_method, or nil if not on a test."
 (global-set-key (kbd "C-c k") 'kill-all-buffers)
 (global-set-key (kbd "C-c r") 'revert-buffer-no-confirm)
 (global-set-key (kbd "C-c c") 'compile)
+(keymap-set ibuffer-mode-map "C-o" #'casual-ibuffer-tmenu)
 
 ;; Enable 'a' key in dired to open in same buffer
 (put 'dired-find-alternate-file 'disabled nil)
