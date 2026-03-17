@@ -61,6 +61,7 @@
     blender
     postgresql
     awscli2
+    opencode
 
     # Browser
     (pkgs.writeShellScriptBin "brave" ''
@@ -125,7 +126,7 @@
         identityFile = "~/.ssh/id_rsa";
       };
 
-      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging online-*.hypestagingv2" = {
+      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging online-*.hypestagingv2 backoffice-*.hypestagingv2 backoffice-*.hype logstash.hype" = {
         user = "mattia_careddu";
         identityFile = "~/.ssh/id_rsa";
         
