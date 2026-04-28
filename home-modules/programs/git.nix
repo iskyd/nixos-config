@@ -30,9 +30,9 @@
       signByDefault = true;
       key = "991C76DCAA073547";
     };
-     ignores = [
-      "#*#"
-      "*~"
+    ignores = [
+     "\\#*#"
+     "*~"
     ];
     includes = [
       {
