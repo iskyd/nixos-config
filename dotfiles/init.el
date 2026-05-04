@@ -259,7 +259,8 @@ Format: package.module.Class.test_method, or nil if not on a test."
   :init
   (setq lsp-go-use-gofumpt t
         lsp-go-analyses '((shadow . t)
-                          (simplifycompositelit . :json-false))))
+                          (simplifycompositelit . :json-false))
+        lsp-gopls-build-flags ["-tags=integration"]))
 
 (use-package yaml-mode
   :mode "\\.ya?ml\\'"
@@ -295,6 +296,8 @@ Format: package.module.Class.test_method, or nil if not on a test."
         (gptel-make-gemini "Gemini" 
           :key gemini-key
           :stream t)))
+
+
 
 (use-package doom-modeline
   :demand t
