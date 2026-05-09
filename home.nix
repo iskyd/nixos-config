@@ -64,13 +64,11 @@
     opencode
 
     # Browser
-    (pkgs.writeShellScriptBin "brave" ''
-      exec ${pkgs.brave}/bin/brave \
-        "$@"
-    '')
+    brave
 
     (pkgs.writeShellScriptBin "brave-no-gpu" ''
       exec ${pkgs.brave}/bin/brave \
+        --user-data-dir="$HOME/.config/brave-no-gpu" \
         --disable-gpu \
         "$@"
     '')
@@ -94,16 +92,6 @@
   ];
 
   xdg.desktopEntries = {
-    brave = {
-      name = "Brave Browser";
-      genericName = "Web Browser";
-      exec = "brave %U";
-      terminal = false;
-      categories = [ "Application" "Network" "WebBrowser" ];
-      mimeType = [ "text/html" "text/xml" ];
-      icon = "${pkgs.brave}/share/icons/hicolor/128x128/apps/brave-browser.png";
-    };
-  
     brave-drm = {
       name = "Brave Browser (No GPU)";
       genericName = "Web Browser for DRM Content No GPU";
@@ -126,7 +114,7 @@
         identityFile = "~/.ssh/id_rsa";
       };
 
-      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging online-*.hypestagingv2 backoffice-*.hypestagingv2 backoffice-*.hype logstash.hype support-*.prod" = {
+      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging online-*.hypestagingv2 backoffice-*.hypestagingv2 backoffice-*.hype logstash.hype support-*.prod online-*.enelstaging online-*.enel backoffice-*.enel" = {
         user = "mattia_careddu";
         identityFile = "~/.ssh/id_rsa";
         
@@ -155,5 +143,8 @@
     EDITOR = "${lib.getExe' pkgs.emacs "emacs"} -nw -q";
     GOPRIVATE = "bitbucket.org/squadrone";
     NIXOS_OZONE_WL = "1";
+    #GBM_BACKEND = "nvidia-drm";
+    #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    #LIBVA_DRIVER_NAME = "nvidia";
   };
 }
