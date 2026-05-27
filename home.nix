@@ -1,3 +1,4 @@
+
 { config, pkgs, lib, ... }:
 
 {
@@ -9,6 +10,7 @@
     ./home-modules/wayland/hyprland.nix
     ./home-modules/wayland/waybar.nix
     ./home-modules/wayland/wofi.nix
+    ./home-modules/programs/opencode.nix
   ];
 
   home.username = "iskyd";
@@ -61,8 +63,8 @@
     blender
     postgresql
     awscli2
-    opencode
-
+    bun
+    
     # Browser
     brave
 
@@ -90,6 +92,8 @@
       fi
     '')
   ];
+
+  
 
   xdg.desktopEntries = {
     brave-drm = {
