@@ -11,6 +11,7 @@
     ./home-modules/wayland/waybar.nix
     ./home-modules/wayland/wofi.nix
     ./home-modules/programs/opencode.nix
+    ./home-modules/programs/claude-code.nix
   ];
 
   home.username = "iskyd";
