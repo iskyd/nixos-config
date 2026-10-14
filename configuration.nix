@@ -18,13 +18,12 @@ in
     ./modules/sops.nix
     <home-manager/nixos>
   ];
-
-  
   
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
   
   nixpkgs.config.allowUnfree = true;
+  programs.nix-ld.enable = true;
   
   # Boot configuration
   boot.loader.systemd-boot.enable = true;
@@ -72,5 +71,6 @@ in
   environment.systemPackages = with pkgs; [
     psmisc
     polkit_gnome
+    openvpn3
   ];
 }

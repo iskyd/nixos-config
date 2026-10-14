@@ -14,6 +14,8 @@
   };
 
   programs.ssh.startAgent = true;
+  programs.openvpn3.enable = true;
+  services.resolved.enable = true;
 
   services.gnome.gcr-ssh-agent.enable = false;
 

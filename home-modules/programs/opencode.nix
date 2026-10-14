@@ -13,8 +13,15 @@ in
   
   xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
     "$schema" = "https://opencode.ai/config.json";
-    plugin = [ "oh-my-openagent" ];
+    plugin = [ "oh-my-openagent" "dietrichgebert/ponytail" ];
     lsp = {};
+    mcp = {
+      codegraph = {
+        type = "local";
+        command = [ "bunx" "-y" "@colbymchenry/codegraph" "serve" "--mcp" ];
+        enabled = true;
+      };
+    };
   };
 
   xdg.configFile."opencode/oh-my-openagent.jsonc".text = builtins.toJSON {
@@ -34,21 +41,21 @@ in
         fallback_models = [ "opencode/kimi-k2.5-free" ];
       };
       prometheus = {
-        model = "opencode/deepseek-v4-flash-free";
+        model = "opencode/deepseek-flash";
         fallback_models = [
           "google/gemini-2.5-flash"
           "opencode/big-pickle"
         ];
       };
       metis = {
-        model = "opencode/deepseek-v4-flash-free";
+        model = "opencode/deepseek-flash";
         fallback_models = [
           "opencode/big-pickle"
           "google/gemini-2.5-flash"
         ];
       };
       momus = {
-        model = "opencode/deepseek-v4-flash-free";
+        model = "opencode/deepseek-flash";
         fallback_models = [
           "opencode/big-pickle"
           "google/gemini-2.5-flash"
@@ -59,7 +66,7 @@ in
         fallback_models = [ "opencode/kimi-k2.5-free" ];
       };
       oracle = {
-        model = "opencode/deepseek-v4-flash-free";
+        model = "opencode/deepseek-flash";
         fallback_models = [
           "google/gemini-2.5-flash"
           "opencode/big-pickle"

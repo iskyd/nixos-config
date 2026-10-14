@@ -118,7 +118,7 @@
         identityFile = "~/.ssh/id_rsa";
       };
 
-      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging online-*.hypestagingv2 backoffice-*.hypestagingv2 backoffice-*.hype logstash.hype support-*.prod online-*.enelstaging online-*.enel backoffice-*.enel" = {
+      "online-*.staging online-*.prod online-*.core backoffice-*.staging backoffice-*.prod logstash.staging logstash.prod bitcoind-*.core online-*.pricingstaging online-*.hype online-*.btpnowstaging online-*.hypestagingv2 backoffice-*.hypestagingv2 backoffice-*.hype logstash.hype support-*.prod support-*.staging online-*.enelstaging online-*.enel backoffice-*.enel backoffice-*.enelstaging crawler-*.hype" = {
         user = "mattia_careddu";
         identityFile = "~/.ssh/id_rsa";
         
