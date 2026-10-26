@@ -45,6 +45,9 @@ in
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
+  security.pki.certificateFiles = [
+    ./certificates/caddy-raspi-ca.crt
+  ];
   
   services.logind = {
     settings = {

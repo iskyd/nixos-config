@@ -2,7 +2,9 @@
 
 let
   unstable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+    # pinned: bump rev + sha256 (nix-prefetch-url --unpack <url>) to update
+    url = "https://github.com/NixOS/nixpkgs/archive/3ec636362e1816bc2f0888fa0fa2c69f1bc9e504.tar.gz";
+    sha256 = "177diqkiwphjyqpk2n6nisayx840x28ksvq99kkyi2xsn37fp4md";
   }) {
     config = {
       allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
@@ -11,10 +13,10 @@ let
     };
   };
 
-  # Fetch plugins from GitHub
+  # Fetch plugins from GitHub, pinned: bump rev (git ls-remote <url> main) to update
   ecc-src = builtins.fetchGit {
     url = "https://github.com/affaan-m/ecc";
-    ref = "main";
+    rev = "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b";
   };
 
   # ecc hooks require() npm deps (js-yaml, ajv, ...), so ship node_modules with the source
@@ -22,8 +24,16 @@ let
     pname = "ecc-plugin";
     version = "main";
     src = ecc-src;
-    # shortcut: ref = "main" is unpinned, so this hash breaks when upstream changes package-lock.json; replace with the "got:" hash from the error
-    npmDepsHash = "sha256-7LlvomrqaKVpNF87F/i2foPpsJA4MTo+o4Jhorl/hBw=";
+    # deps come from package-lock.json integrity hashes, so no npmDepsHash to bump with rev
+    npmDeps = pkgs.importNpmLock {
+      npmRoot = ecc-src;
+      # deps get rewritten to file: paths, so overrides of direct deps must use npm's "$dep" form or npm fails with EOVERRIDE
+      package = let p = lib.importJSON "${ecc-src}/package.json"; in
+        lib.recursiveUpdate p {
+          overrides = lib.mapAttrs (n: v: "$" + n) (lib.intersectAttrs p.dependencies p.overrides);
+        };
+    };
+    npmConfigHook = pkgs.importNpmLock.npmConfigHook;
     npmInstallFlags = [ "--omit=dev" ];
     dontNpmBuild = true;
     installPhase = "cp -r . $out";
@@ -31,7 +41,7 @@ let
 
   ponytail-plugin = builtins.fetchGit {
     url = "https://github.com/dietrichgebert/ponytail";
-    ref = "main";
+    rev = "09c434ab73ca43761c5d8b0c5d341926c2fba710";
   };
 in
 {

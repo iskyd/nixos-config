@@ -3,6 +3,7 @@
 {
   programs.git = {
     settings = {
+      core.sshCommand = "${pkgs.openssh}/bin/ssh -4";
       alias = {
         amend = "commit --amend";
         authors = "!\"${pkgs.git}/bin/git log --pretty=format:%aN"
