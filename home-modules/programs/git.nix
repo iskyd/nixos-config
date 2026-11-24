@@ -19,8 +19,9 @@
         enabled = true;
         autoUpdate = true;
       };
-      "url \"git@bitbucket.org:\"" = {
-        insteadOf = "https://bitbucket.org";
+      "url \"git@ssh.bitbucket.org:\"" = {
+        # Bitbucket Cloud moved SSH to ssh.bitbucket.org; also rewrites existing clones' old remotes
+        insteadOf = [ "https://bitbucket.org/" "git@bitbucket.org:" "ssh://git@bitbucket.org/" ];
       };
       push.autoSetupRemote = true;
       pull.rebase = true;
@@ -53,7 +54,5 @@
         gpgSign = false
     [tag]
         gpgSign = false
-    [url "git@bitbucket.org:"]
-        insteadOf = https://bitbucket.org
   '';
 }
